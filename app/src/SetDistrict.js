@@ -2,29 +2,29 @@ import React from "react";
 
 class SetDistrict extends React.Component {
 
-  state = { stackId: null, v1: null, v2: null};
+  state = { stackId: null};
 
 
-  handleKeyDown2 = e => {
+  handleKeyDown1 = e => {
     // if the enter key is pressed, set the value with the string
     if (e.keyCode === 13) {
-      this.v1 = e.target.value;
+      this.setValue(e.target.value1);
     }
   };
 
-  handleKeyDown2 = e => {
+  handleKeyDown2 = f => {
     // if the enter key is pressed, set the value with the string
-    if (e.keyCode === 13) {
-      this.v2 = e.target.value;
+    if (f.keyCode === 13) {
+      this.setValue(f.target.value2);
     }
   };
 
-  setValue = () => {
+  setValue = (value1, value2) => {
     const { drizzle, drizzleState } = this.props;
     const contract = drizzle.contracts.Level1;
 
     // let drizzle know we want to call the `set` method with `value`
-    const stackId = contract.methods["registerDistrict"].cacheSend(this.v1, String(this.v2), {
+    const stackId = contract.methods["registerDistrict"].cacheSend(this.textInput1.value, this.textInput2.value, {
       from: drizzleState.accounts[0]
     });
 
@@ -49,8 +49,8 @@ class SetDistrict extends React.Component {
   render() {
     return (
       <div>
-        <input type="text" onKeyDown={this.handleKeyDown1} />
-        <input type="text" onKeyDown={this.handleKeyDown2} />
+        <input type="text" ref = {(input1) => this.textInput1 = input1} onKeyDown={this.handleKeyDown1} />
+        <input type="text" ref = {(input2) => this.textInput2 = input2} onKeyDown={this.handleKeyDown2} />
         <div>{this.getTxStatus()}</div>
       </div>
     );

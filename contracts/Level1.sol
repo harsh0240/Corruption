@@ -190,7 +190,7 @@ contract Level1
 
     }
     
-    //Choosing the 
+    //Choosing the winning Proposal
     function winningProposal(uint cont_Id, uint prop_Id) public 
     {
         require(msg.sender==state_gov);
