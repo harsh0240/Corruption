@@ -92,6 +92,7 @@ contract Level1
         address authorityAddress;
         string authorityName;
         uint authorityId;
+        uint authWeight;
         
         uint[] authVote;
     }
@@ -214,12 +215,12 @@ contract Level1
         
     }
     
-    function registerAuthority(address auth_address,uint auth_Id,string memory auth_Name) public
+    function registerAuthority(address auth_address,uint auth_Id,string memory auth_Name,uint auth_weight) public
     {
         require(msg.sender ==state_gov);
         
         uint[] memory empArr;
-        auths.push(Authority({authorityAddress: auth_address, authorityName:auth_Name, authorityId: auth_Id, authVote:empArr}));
+        auths.push(Authority({authorityAddress: auth_address, authorityName:auth_Name,authWeight:auth_weight, authorityId: auth_Id, authVote:empArr}));
         authMap[auth_Name] = auths.length-1;
     }
     
@@ -236,8 +237,10 @@ contract Level1
         
         
         auths[authMap[auth_title]].authVote.push(votes.length-1);
+        
+        uint auth_weight = auths[authMap[auth_title]].authWeight;
         uint num_votes = tasks[taskMap[task_title]].numVotes;
-        tasks[taskMap[task_title]].status = uint((tasks[taskMap[task_title]].status*num_votes+vote_value)/(num_votes+1));
+        tasks[taskMap[task_title]].status = uint((tasks[taskMap[task_title]].status*num_votes*auth_weight+vote_value)/(num_votes+auth_weight));
         tasks[taskMap[task_title]].numVotes+=1;
         
     }
