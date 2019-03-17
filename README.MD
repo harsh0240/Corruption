@@ -65,3 +65,36 @@ company.
 
 
 
+
+
+# Setup
+- Clone this repo
+- Install latest version of [NodeJS](https://nodejs.org/en/)
+- Install `truffle` globally using `npm install -g truffle` 
+- Install Ganache from truffle  
+- Open ganache in a terminal which will emulate the blockchain on HTTP://127.0.0.1:8545
+*  Open another terminal/cmd and navigate to current working directory and again, cd into 'backend'. `cd backend`. You will now need to compile solidity contracts, migrate them to your Ethereum Server before front end is started.
+    * `truffle compile` (On Windows 10, `truffle.cmd compile`)
+    * `truffle migrate` (On Windows 10, `truffle.cmd migrate`)
+    * `truffle console` (On Windows 10, `truffle.cmd console`)
+        * Within console, we need the address (SHA256) address of 'Supplier.sol' & 'Customer.Sol' solidity contracts.
+        * We can get that using `Gov.address`
+            * Copy the SHA256 string safely. We will need this later. [TAG - Supplier SHA256]
+        * Get Customer contract address using `Customer.address` 
+            * Copy the SHA256 safely, We will need this later. [TAG - Customer SHA256]
+
+* Now, lets get the front end functional!
+* Open the file named 'EthereumSetup.js' (`Decentralized_eCom/frontend/src/EthereumSetup.js`)
+    * Copy `Gov.address` from [TAG - Supplier SHA256] step to line number 13. (`let GovAddress = '<YOUR SHA256 Address for Supplier Contract>'`)
+    * Copy `CustomerAddress` from [TAG - Customer SHA256] step to line number 14. (`let customerAddress = '<YOUR SHA256 Address for Customer Contract>').
+    * Save file `EthereumSetup.js`
+* Open a new terminal/cmd and navigate to current working directory
+* cd into 'GovFrontend'. `cd Govfrontend` 
+* `npm install`
+* `npm start` to bring the Customer front end to life!
+* cd into 'CustomerFrontend'. `cd Custometfrontend` 
+* `npm install`
+* `npm start` to bring the Customer front end to life!
+
+
+
