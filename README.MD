@@ -5,7 +5,7 @@
 > any of that stuff.” 
 ##        “…until now.” -Blockchain
 
-### Problem 
+### PROBLEM 
 Many times we have witnessed that the money issued by the government is often misused.
 It hardly reaches its destination. The government transfers money to the intermediaries to
 complete the task but no one knows where that money is finally used. Most of the times it
@@ -42,20 +42,20 @@ Let us understand the approach taking an example. Consider a case where the cent
 government declares to open schools in cities. Below are the steps being followed to
 complete the task :
 </br>
-● First the central government will ask the state governments to provide with the list of
+●   First the central government will ask the state governments to provide with the list of
 companies/organizations they have selected to provide the task and the details of
 selecting that organization particularly.
 In this step the list and details of selecting the organization will be made public
 on the blockchain network so that everyone can look which organization has been
 assigned the task and all the details.
 </br>
-● For selecting the company, the state government will issue a tender with deadline for
+●   For selecting the company, the state government will issue a tender with deadline for
 working on the task publically. Interested companies will provide the money and time
 they require to accomplish the given task.
 Now the state government will choose the best option among them and
 publically issue the details of selection of organization.
 </br>
-● Now after scrutinizing the details of selected organizations, the organization will start
+●   Now after scrutinizing the details of selected organizations, the organization will start
 working on the project and the central government will issue a contract on the
 network providing the funds directly to that company.
 The citizens of that area will also be able to review the work of the company
