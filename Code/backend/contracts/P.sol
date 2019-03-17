@@ -59,28 +59,30 @@ contract Level1
         uint[] organizationProposalsId; // proposalId's of proposals submitted by this organization
     }
 
-
+    //Definition of District
     struct District
     {
         address districtAddress; // hash key for district
-        string districtTitle;
-        uint districtId;
-        uint[] districtTasksId;
+        string districtTitle;   // title of district
+        uint districtId;        // Id of district
+        uint[] districtTasksId; // List of Ids of tasks involved with district
     }
-
+    
+    //Definition of Contract
     struct Contract {
-        uint distId;
-        uint taskId;
-        bool isIssued;
-        uint votes;
+        uint distId;    // Id of district involved with Contract
+        uint taskId;    // Id of task for which contract is registred
+        bool isIssued;  
+        uint votes;     
         uint[] ProposalIds;
         mapping (address => bool) voted;
     }
-
+    
+    // Definition of Vote
     struct Vote
     {
-        uint contId;
-        uint vote_points; // 0-100
+        uint contId;    // contract for which votes are being cast
+        uint vote_points; // vote points voted
     }
     
     //Definition of citizen
