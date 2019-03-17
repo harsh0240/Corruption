@@ -5,34 +5,38 @@ pragma solidity ^0.4.25;
 
 contract Level1
 {
-    address public state_gov;
-
-    struct Proposal
+    address public state_gov;// The address of the state government
+    
+    // Definition of a proposal 
+    struct Proposal         
     {
-        uint organizationId;
-        uint contId;
+        uint organizationId;    // Id of organization submitting the proposal
+        uint contId;  // Id of the proposal
+        
+        
+        uint costEstimate;          // Estimated cost of this proposal
+        string proposalDescription; // A description of the proposal
+        string proposalTitle;       // Title of the proposal
+        bool is_awarded;            
 
-        string proposalDescription;
-        string proposalTitle;
-        bool is_awarded;
-
-        uint costEstimate;
+        
         /*uint duration; // in months
         uint epoch; // in seconds
         */
 
     }
-
+    
+    // Definition of a task
     struct Task
     {
-       uint taskId;
-       string taskTitle;
+       uint taskId;     //Id of the task
+       string taskTitle;    //Title of the task
        /*
-       string taskDescription;// a description of the task
+       string taskDescription;      // a description of the task
        */
 
        uint propId; // proposal chosen for this taskDescription
-       uint numVotes;
+       uint numVotes;   
        uint status;// (0-100) level of completion
        bool is_completed ;
 
@@ -78,15 +82,17 @@ contract Level1
         uint contId;
         uint vote_points; // 0-100
     }
-
+    
+    //Definition of citizen
     struct Citizen
     {
-        address citizenAddress;
-        string citizenName;
+        address citizenAddress; // Address if the citizen
+        string citizenName;     
         uint citizenId;
         // indices of votes which this citizen has cast votes for
     }
-
+    
+    // Definition of Authority
     struct Authority
     {
         address authorityAddress;
@@ -95,24 +101,26 @@ contract Level1
         uint authWeight;
         uint[] authVote;
     }
-
+    
+    //Definition of payment
     struct Payment 
-    {
-        address to;
-        uint cost;
+    {   
+        address to; //Address of receiver
+        uint cost;  // Amount Payed
     }
 
-    District[] public districts;
-    Task[] public tasks;
-    Organization[] public organizations;
-    Proposal[] public proposals;
-    Citizen[] public citizens;
-    Authority[] public auths;
-    Vote[] public votes;
-    Contract[] public contracts;
-    Payment[] public payments;
-    mapping(address => uint) tag;
-    mapping(uint => uint) winners;
+    District[] public districts; //List of Districts registered with state
+    Task[] public tasks;    //List of Tasks registered with state
+    Organization[] public organizations;    //List of Organizations registered with state
+    Proposal[] public proposals;    //List of Proposals registered by the Organizations
+    Citizen[] public citizens;      // List of Citizens enrolled with state
+    Authority[] public auths;       //List of Authorities enrolled with state
+    Vote[] public votes;            //List of votes cast about task completion
+    Contract[] public contracts;    //List of contracts registered
+    Payment[] public payments;      //List of payments tansacted
+    mapping(address => uint) tag;   //A Dictionary of address mapped to respective category of user
+                                    // i.e , state_gov - 1, district -2, organization -3, citizen -4
+    mapping(uint => uint) winners;  // List consisting of organizations which have been awarded contracts
     //mapping(address => bool) voted;
 
     // Dictionary from id's to array indices
@@ -238,6 +246,7 @@ contract Level1
 
     }
     
+    // Function to verify completion of the contract 
     function verifyCompletion(uint cont_id) view public returns (bool) 
     {
         require(msg.sender==state_gov);    
@@ -247,18 +256,15 @@ contract Level1
             return false;
     }
 
+    //Function to pay the organization post completion of contract
     function payment (uint cont_id) public 
     {
+        // payment can be done only by the state_gov
         
         require(verifyCompletion(cont_id));
         payments.push(Payment(organizations[proposals[winners[cont_id]].organizationId].organizationAddress, proposals[winners[cont_id]].costEstimate));
     }
 
-
-
-
-
-    //
 
 
 }
