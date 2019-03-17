@@ -15,7 +15,7 @@ officials demand bribe to do that task. This also adds up in the total corruptio
 country.
 So our idea will eradicate these two problems of money laundering and bribery.
 
-### &#x1F535; SOLUTION:
+### &#x1F535; SOLUTION
 In the current age, there is corruption in every government sector. The problem persists not
 only in India but it has become a major global issue. Till now there was no particular method
 that guaranteed to tackle this problem. But now after the introduction of Blockchain
