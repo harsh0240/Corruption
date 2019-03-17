@@ -33,6 +33,7 @@ of transactions such as procurement processes. By leveraging a shared and distri
 database of ledgers, it eliminates the need for intermediaries, cutting red-tape and reducing
 discretionality.
 # WORKFLOW
+![workflow](https://github.com/harsh0240/Corruption/blob/master/Corruption%20(5).png)
 For the solution of first problem of eradicating the case of money laundering we will
 eliminate the transferring of funds through mediators. We will develop a system in which
 the government will directly transact the funds to the developer of the project and every
@@ -61,4 +62,6 @@ The citizens of that area will also be able to review the work of the company
 and provide a feedback. If the public says that no work is being done by the company
 then the government can cancel the issued contract and take action on that
 company.
+
+
 
