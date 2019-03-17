@@ -5,7 +5,7 @@
 > any of that stuff.” 
 ##        “…until now.” -Blockchain
 
-### PROBLEM 
+### &#x1F534; PROBLEM 
 Many times we have witnessed that the money issued by the government is often misused.
 It hardly reaches its destination. The government transfers money to the intermediaries to
 complete the task but no one knows where that money is finally used. Most of the times it
@@ -15,7 +15,7 @@ officials demand bribe to do that task. This also adds up in the total corruptio
 country.
 So our idea will eradicate these two problems of money laundering and bribery.
 
-### SOLUTION:
+### &#x1F535; SOLUTION:
 In the current age, there is corruption in every government sector. The problem persists not
 only in India but it has become a major global issue. Till now there was no particular method
 that guaranteed to tackle this problem. But now after the introduction of Blockchain
