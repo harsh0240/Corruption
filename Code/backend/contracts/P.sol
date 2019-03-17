@@ -1,37 +1,42 @@
 /*
 Team : 5 Reasons Why
 */
-pragma solidity >=0.4.25 <=0.6.0;
+pragma solidity ^0.4.25;
 
 contract Level1
 {
-    address public state_gov;
-    struct  Proposal
+    address public state_gov;// The address of the state government
+    
+    // Definition of a proposal 
+    struct Proposal         
     {
-        uint organizationId;
-        uint contId;
+        uint organizationId;    // Id of organization submitting the proposal
+        uint contId;  // Id of the proposal
+        
+        
+        uint costEstimate;          // Estimated cost of this proposal
+        string proposalDescription; // A description of the proposal
+        string proposalTitle;       // Title of the proposal
+        bool is_awarded;            
 
-        string proposalDescription;
-        string proposalTitle;
-        bool is_awarded;
-
-        uint costEstimate;
+        
         /*uint duration; // in months
         uint epoch; // in seconds
         */
 
     }
-
-    struct  Task
+    
+    // Definition of a task
+    struct Task
     {
-       uint taskId;
-       string taskTitle;
+       uint taskId;     //Id of the task
+       string taskTitle;    //Title of the task
        /*
-       string taskDescription;// a description of the task
+       string taskDescription;      // a description of the task
        */
 
        uint propId; // proposal chosen for this taskDescription
-       uint numVotes;
+       uint numVotes;   
        uint status;// (0-100) level of completion
        bool is_completed ;
 
@@ -44,7 +49,7 @@ contract Level1
     }
 
 
-    struct  Organization
+    struct Organization
     {
         address organizationAddress;// hash key for org
 
@@ -55,7 +60,7 @@ contract Level1
     }
 
 
-    struct  District
+    struct District
     {
         address districtAddress; // hash key for district
         string districtTitle;
@@ -63,7 +68,7 @@ contract Level1
         uint[] districtTasksId;
     }
 
-    struct  Contract {
+    struct Contract {
         uint distId;
         uint taskId;
         bool isIssued;
@@ -72,20 +77,23 @@ contract Level1
         mapping (address => bool) voted;
     }
 
-    struct  Vote
+    struct Vote
     {
         uint contId;
         uint vote_points; // 0-100
     }
-    struct  Citizen
+    
+    //Definition of citizen
+    struct Citizen
     {
-        address citizenAddress;
-        string citizenName;
+        address citizenAddress; // Address if the citizen
+        string citizenName;     
         uint citizenId;
         // indices of votes which this citizen has cast votes for
     }
-
-    struct  Authority
+    
+    // Definition of Authority
+    struct Authority
     {
         address authorityAddress;
         string authorityName;
@@ -93,56 +101,57 @@ contract Level1
         uint authWeight;
         uint[] authVote;
     }
-
-    struct  Payment
-    {
-        address to;
-        uint cost;
+    
+    //Definition of payment
+    struct Payment 
+    {   
+        address to; //Address of receiver
+        uint cost;  // Amount Payed
     }
 
-    District[] public districts;
-    Task[] public tasks;
-    Organization[] public organizations;
-    Proposal[] public proposals;
-    Citizen[] public citizens;
-    Authority[] public auths;
-    Vote[] public votes;
-    Contract[] public contracts;
-    Payment[] public payments;
-    mapping(address => uint) tag;
-    mapping(uint => uint) winners;
+    District[] public districts; //List of Districts registered with state
+    Task[] public tasks;    //List of Tasks registered with state
+    Organization[] public organizations;    //List of Organizations registered with state
+    Proposal[] public proposals;    //List of Proposals registered by the Organizations
+    Citizen[] public citizens;      // List of Citizens enrolled with state
+    Authority[] public auths;       //List of Authorities enrolled with state
+    Vote[] public votes;            //List of votes cast about task completion
+    Contract[] public contracts;    //List of contracts registered
+    Payment[] public payments;      //List of payments tansacted
+    mapping(address => uint) tag;   //A Dictionary of address mapped to respective category of user
+                                    // i.e , state_gov - 1, district -2, organization -3, citizen -4
+    mapping(uint => uint) winners;  // List consisting of organizations which have been awarded contracts
     //mapping(address => bool) voted;
 
     // Dictionary from id's to array indices
     mapping(uint => uint) distMap;// distdId  to index in dist
-    mapping(uint => uint) orgMap; // orgI to index in organizations
-    mapping(uint => uint) taskMap;// taskId to index in tasks
-    mapping(uint => uint) propMap;// propId to index in proposals
-    mapping(string => uint) citiMap;// citiId to index in citizens
-
-
+    mapping(uint => uint) orgMap; // orgI to index in organizations 
+    mapping(uint => uint) taskMap;// taskId to index in tasks 
+    mapping(uint => uint) propMap;// propId to index in proposals 
+    mapping(string => uint) citiMap;// citiId to index in citizens 
+    
+    
     //mapping(uint => bool) // mapping from contract Id to bool
 
 
-    constructor() public
+    constructor() public 
     {
         state_gov = msg.sender;
         tag[msg.sender] = 1;
     }
-
-    function registerTask(uint task_id, string memory task_title) public
+    
+    function registerTask(uint task_id, string memory task_title) public 
     {
-
         require(msg.sender == state_gov);
         uint[] memory empArr;
         tasks.push(Task({taskId:task_id, taskTitle:task_title,numVotes:0, propId:0,status:0,is_completed: false, taskProposalsId:empArr}));
         taskMap[task_id] = tasks.length-1;
     }
-
+    
     // Registering a District
-    function registerDistrict(address dist_address, uint dist_Id, string memory dist_Title) public
+    function registerDistrict(address dist_address, uint dist_Id, string memory dist_Title) public 
     {
-
+        
         require(msg.sender == state_gov);
         uint[] memory empArr;
         districts.push(District({districtAddress:dist_address,districtId: dist_Id, districtTitle:dist_Title,districtTasksId:empArr}));
@@ -150,13 +159,13 @@ contract Level1
         tag[dist_address] = 2;
     }
     // Passing a contract from state government to a particular district
-    function passContract(uint task_id, uint dist_id) public
+    function passContract(uint task_id, uint dist_id) public 
     {
         uint[] memory emp;
         contracts.push(Contract({distId: dist_id, taskId: task_id, isIssued: false, votes: 0, ProposalIds: emp}));
         districts[distMap[dist_id]].districtTasksId.push(contracts.length-1);
     }
-
+    
     // Registering organizations with the state governments
     function registerOrganization(address org_address, uint org_Id, string memory org_title) public
     {
@@ -167,16 +176,16 @@ contract Level1
         orgMap[org_Id] = organizations.length-1;
         tag[org_address] = 3;
     }
-
+    
     //Issue a particular contract
-    function issueContract(uint cont_id) public
+    function issueContract(uint cont_id) public 
     {
         require(tag[msg.sender] == 2);
         contracts[cont_id].isIssued = true;
     }
-
-    //Registering new proposals
-    function registerProposal(uint org_Id, uint cont_Id, string memory prop_Desc, string memory prop_Title, uint cost) public
+    
+    //Registering new proposals 
+    function registerProposal(uint org_Id, uint cont_Id, string memory prop_Desc, string memory prop_Title, uint cost) public 
     {
         require(tag[msg.sender] == 3 && contracts[cont_Id].isIssued);
 
@@ -188,9 +197,9 @@ contract Level1
         organizations[orgMap[org_Id]].organizationProposalsId.push(proposals.length-1);
 
     }
-
+    
     //Choosing the winning Proposal
-    function winningProposal(uint cont_Id, uint prop_Id) public
+    function winningProposal(uint cont_Id, uint prop_Id) public 
     {
         require(msg.sender==state_gov);
         bool found = false;
@@ -201,7 +210,7 @@ contract Level1
         proposals[prop_Id].is_awarded = true;
         winners[cont_Id] = prop_Id;
     }
-
+    
     //Registering new Citizens
     function registerCitizen(address cit_address,uint cit_Id,string memory cit_Name) public
     {
@@ -227,37 +236,35 @@ contract Level1
             weight = 5;
 
         votes.push(Vote({contId:cont_Id,vote_points:weight}));
-
+        
         contracts[cont_Id].voted[msg.sender] = true;
-
+        
         if (vote == true)
             contracts[cont_Id].votes += weight;
         else
             contracts[cont_Id].votes -= weight;
 
     }
-
-    function verifyCompletion(uint cont_id) view public returns (bool)
+    
+    // Function to verify completion of the contract 
+    function verifyCompletion(uint cont_id) view public returns (bool) 
     {
-        require(msg.sender==state_gov);
+        require(msg.sender==state_gov);    
         if (contracts[cont_id].votes > 0)
             return true;
         else
             return false;
     }
 
-    function payment (uint cont_id) public
+    //Function to pay the organization post completion of contract
+    function payment (uint cont_id) public 
     {
-
+        // payment can be done only by the state_gov
+        
         require(verifyCompletion(cont_id));
         payments.push(Payment(organizations[proposals[winners[cont_id]].organizationId].organizationAddress, proposals[winners[cont_id]].costEstimate));
     }
 
-
-
-
-
-    //
 
 
 }
