@@ -77,16 +77,16 @@ company.
     * `truffle compile` (On Windows 10, `truffle.cmd compile`)
     * `truffle migrate` (On Windows 10, `truffle.cmd migrate`)
     * `truffle console` (On Windows 10, `truffle.cmd console`)
-        * Within console, we need the address (SHA256) address of 'Supplier.sol' & 'Customer.Sol' solidity contracts.
+        * Within console, we need the address (SHA256) address of 'Gov.sol' & 'Customer.Sol' solidity contracts.
         * We can get that using `Gov.address`
             * Copy the SHA256 string safely. We will need this later. [TAG - Supplier SHA256]
         * Get Customer contract address using `Customer.address` 
             * Copy the SHA256 safely, We will need this later. [TAG - Customer SHA256]
 
 * Now, lets get the front end functional!
-* Open the file named 'EthereumSetup.js' (`Decentralized_eCom/frontend/src/EthereumSetup.js`)
-    * Copy `Gov.address` from [TAG - Supplier SHA256] step to line number 13. (`let GovAddress = '<YOUR SHA256 Address for Supplier Contract>'`)
-    * Copy `CustomerAddress` from [TAG - Customer SHA256] step to line number 14. (`let customerAddress = '<YOUR SHA256 Address for Customer Contract>').
+* Open the file named 'EthereumSetup.js'
+    * Copy `Gov.address` from [TAG - Supplier SHA256] step to line (`let GovAddress = '<YOUR SHA256 Address for Gov Contract>'`)
+    * Copy `CustomerAddress` from [TAG - Customer SHA256] step to line (`let customerAddress = '<YOUR SHA256 Address for Customer Contract>').
     * Save file `EthereumSetup.js`
 * Open a new terminal/cmd and navigate to current working directory
 * cd into 'GovFrontend'. `cd Govfrontend` 
