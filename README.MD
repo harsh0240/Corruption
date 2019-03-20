@@ -1,5 +1,9 @@
 # Ethereum Track: Blockchain to target the problem of corruption
 
+Video Links - 
+https://www.youtube.com/watch?v=5qb7n_Tvdwc (Overview of Dapp functionality using Remix IDE)
+https://www.youtube.com/watch?v=qC6JcwVnQNM (Frontend of Dapp using ganache and truffle)
+
 > “Corruption, embezzlement, fraud, these are all characteristics which exist everywhere. It is regrettably the way human 
 > nature functions, whether we like it or not. What successful economies do is keep it to a minimum. No one has ever eliminated 
 > any of that stuff.” 
